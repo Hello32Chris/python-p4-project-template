@@ -1,0 +1,9 @@
+Create  a route that filters through transactions by store -- non-restful routing
+ - A company has man ygoods services a user might be linked to the goods they purchased only by a transaction 
+
+GOALS:
+
+CREATE A ROUTE for transactions only belonging to one client so the client can see their history as well as the store can as well possibly
+
+- GET transaction by client_id ^^^^^^^^^
+- Start creating front end :))))

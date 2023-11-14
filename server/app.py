@@ -14,8 +14,10 @@ def index():
 @app.route('/clients', methods=['GET'])
 def clients():
     clients = Client.query.all()
-    resp = make_response([client.to_dict() for client in clients], 200)
+    resp = make_response([client.to_dict(rules=('-password_hash', '-transactions.stores.password_hash')) for client in clients], 200)
     return resp
+
+
 
 
 #---------------------------------------------------------------------------------------------------VIEW ALL TRANSACTIONS [GET]-------------
@@ -63,7 +65,8 @@ def create_client():
         name=form_data['name'],
         email=form_data['email'],
     )
-    new_client.set_password(form_data['password'])  # Hash the password with bcrypt
+    hashed_password = bcrypt.generate_password_hash(form_data['password']).decode('utf-8')
+    new_client.password_hash = hashed_password # Hash the password with bcrypt
     db.session.add(new_client)
     db.session.commit()
 
